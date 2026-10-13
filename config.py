@@ -11,3 +11,11 @@ NN_DROP = 0.2
 VOCAB_JSON_PATH = "src/neural_network/vocab/map.json"
 
 DATASET_PATH = "data/emails.csv"
+
+TRAIN_SPLIT = 0.8
+
+TRAIN_EPOCHS = 10
+
+TRAIN_BATCH = 64
+
+TRAIN_VERBOSE = 1

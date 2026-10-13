@@ -42,3 +42,17 @@ class Network:
         labels = df['label'].values.astype(np.float32)
 
         return inputs, labels
+
+    def train(self, emails: np.ndarray, labels: np.ndarray):
+        emails_train = emails[:config.TRAIN_SPLIT]
+        emails_test = emails[config.TRAIN_SPLIT:]
+        labels_train = labels[:config.TRAIN_SPLIT]
+        labels_test = labels[config.TRAIN_SPLIT:]
+
+        self.model.fit(
+            emails_train, labels_train,
+            validation_data=(emails_test, labels_test),
+            epochs=config.TRAIN_EPOCHS,
+            batch_size=config.TRAIN_BATCH,
+            verbose=config.TRAIN_VERBOSE
+        )

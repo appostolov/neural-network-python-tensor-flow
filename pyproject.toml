@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neural-network-python-tensor-flow"
+version = "1.0.0"
+authors = [
+    { name="Petar Apostolov", email="appostolov@gmail.com" }
+]
+description = "A character-level LSTM neural network to validate email address syntax."
+readme = "README.md"
+requires-python = ">=3.9, <3.13" # TensorFlow currently runs best on these versions
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+# CRUCIAL: This automatically fetches TensorFlow and its sub-packages out-of-the-box
+dependencies = [
+    "tensorflow>=2.15.0,<2.18.0",
+    "numpy>=1.23.5,<2.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/appostolov/neural-network-python-tensor-flow.git"

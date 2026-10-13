@@ -9,3 +9,5 @@ NN_HID_SIZE = 32
 NN_DROP = 0.2
 
 VOCAB_JSON_PATH = "src/neural_network/vocab/map.json"
+
+DATASET_PATH = "data/emails.csv"

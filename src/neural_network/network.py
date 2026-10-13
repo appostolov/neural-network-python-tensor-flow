@@ -6,7 +6,7 @@ import numpy as np
 from src.neural_network.vocab.vocab import Vocab
 
 class Network:
-    def __init__(self, vocab_size: int, max_length: int = config.EMAIL_MAX_LEN):
+    def create(self, vocab_size: int, max_length: int = config.EMAIL_MAX_LEN):
 
         self.max_length = max_length
         self.vocab_size = vocab_size
@@ -56,3 +56,14 @@ class Network:
             batch_size=config.TRAIN_BATCH,
             verbose=config.TRAIN_VERBOSE
         )
+
+    def save(self, dir: str = config.MODEL_SAVE_DIR):
+        self.model.save(dir)
+
+    def open(self, dir: str = config.MODEL_SAVE_DIR):
+        self.model.load_model(dir)
+
+    def run(self, email: str)->float:
+        vocab = Vocab()
+        return self.model.predict(vocab.text_to_indexes(email, config.EMAIL_MAX_LEN))
+

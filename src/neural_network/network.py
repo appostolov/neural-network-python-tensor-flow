@@ -21,3 +21,9 @@ class Network:
             layers.Dropout(config.NN_DROP),
             layers.Dense(1, activation='sigmoid')
         ])
+
+        self.model.compile(
+            optimizer='adam',
+            loss='binary_crossentropy',
+            metrics=['accuracy']
+        )

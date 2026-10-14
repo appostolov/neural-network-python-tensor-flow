@@ -20,6 +20,4 @@ TRAIN_BATCH = 64
 
 TRAIN_VERBOSE = 1
 
-VOCAB_JSON_PATH = "src/neural_network/vocab/map.json"
-
-MODEL_SAVE_DIR = "src/neural_network/saved_model"
+MODEL_SAVE_PATH = "models/model.keras"

@@ -1,9 +1,10 @@
 import tensorflow as tf
-from tensorflow.keras import layers, models
+from keras import layers, models
+from keras.models import load_model
 import pandas as pd
 import config
 import numpy as np
-from src.neural_network.vocab.vocab import Vocab
+from .vocab.vocab import Vocab
 
 class Network:
     def create(self, vocab_size: int, max_length: int = config.EMAIL_MAX_LEN):
@@ -31,7 +32,7 @@ class Network:
             metrics=['accuracy']
         )
 
-    def dataset(file: str = config.DATASET_PATH):
+    def dataset(self, file: str = config.DATASET_PATH):
 
         df = pd.read_csv(file)
         df = df.sample(frac=1, random_state=42).reset_index(drop=True)
@@ -44,10 +45,11 @@ class Network:
         return inputs, labels
 
     def train(self, emails: np.ndarray, labels: np.ndarray):
-        emails_train = emails[:config.TRAIN_SPLIT]
-        emails_test = emails[config.TRAIN_SPLIT:]
-        labels_train = labels[:config.TRAIN_SPLIT]
-        labels_test = labels[config.TRAIN_SPLIT:]
+        split = int(len(emails) * config.TRAIN_SPLIT)
+        emails_train = emails[:split]
+        emails_test = emails[split:]
+        labels_train = labels[:split]
+        labels_test = labels[split:]
 
         self.model.fit(
             emails_train, labels_train,
@@ -57,13 +59,14 @@ class Network:
             verbose=config.TRAIN_VERBOSE
         )
 
-    def save(self, dir: str = config.MODEL_SAVE_DIR):
-        self.model.save(dir)
+    def save(self, path: str = config.MODEL_SAVE_PATH):
+        self.model.save(path)
 
-    def open(self, dir: str = config.MODEL_SAVE_DIR):
-        self.model.load_model(dir)
+    def open(self, path: str = config.MODEL_SAVE_PATH):
+        self.model = load_model(path)
 
     def run(self, email: str)->float:
         vocab = Vocab()
-        return self.model.predict(vocab.text_to_indexes(email, config.EMAIL_MAX_LEN))
+        input = np.array([vocab.text_to_indexes(email, config.EMAIL_MAX_LEN)])
+        return self.model.predict(input)
 

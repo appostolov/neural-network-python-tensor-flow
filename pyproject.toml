@@ -21,6 +21,7 @@ classifiers = [
 dependencies = [
     "tensorflow>=2.15.0,<2.18.0",
     "numpy>=1.23.5,<2.0.0",
+    "pandas>=2.0.0",
 ]
 
 [project.urls]
